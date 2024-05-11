@@ -1,0 +1,4 @@
+repository "Greenlife V1.0@Henrique_manzoli@cloud"
+  path "/"
+    br "/main"
+    co "/main"
