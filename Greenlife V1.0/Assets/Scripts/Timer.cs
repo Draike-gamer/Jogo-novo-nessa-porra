@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
 
 public class SimpleTimer : MonoBehaviour
 {
@@ -34,6 +35,7 @@ public class SimpleTimer : MonoBehaviour
                 timeRemaining = 0;
                 timerIsRunning = false;
                 Debug.Log("Tempo acabou!");
+                Cursor.lockState = CursorLockMode.None;
 
                 // Chama a função para indicar que o temporizador chegou a zero no GameStateSaver
                 gameStateSaver.ResetScene();

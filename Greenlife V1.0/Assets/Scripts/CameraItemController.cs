@@ -6,6 +6,12 @@ public class CameraItemController : MonoBehaviour
 {
     // Referência para o GameObject que contém os itens
     public Transform itemHolder;
+    public ParticleSystem waterJetParticleSystem;
+
+    void Start()
+    {
+        waterJetParticleSystem.Stop();
+    }
 
     void Update()
     {

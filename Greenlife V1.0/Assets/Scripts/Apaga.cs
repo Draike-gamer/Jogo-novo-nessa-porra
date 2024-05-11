@@ -9,10 +9,9 @@ public class ObjetoComVida : MonoBehaviour
     public int vidaAtual;
     public Text textoVida;
     public GameObject[] objetosParaDestruir;
-    public GameObject grupoParaDesativar;
-    public GameObject objetoParaAtivar;
-
+    public GameObject[] objetosParaAtivar;
     private int objetosDestruidos = 0;
+    private bool ativarObjetoJogador = false;
 
     private void Start()
     {
@@ -27,27 +26,39 @@ public class ObjetoComVida : MonoBehaviour
         if (vidaAtual <= 0)
         {
             vidaAtual = 0;
-            DestruirGrupoDeObjetos();
+            objetosDestruidos += DestruirGrupoDeObjetos();
         }
 
         AtualizarTextoVida();
+
+        if (objetosDestruidos >= 3 && !ativarObjetoJogador)
+        {
+            ativarObjetoJogador = true;
+            AtivarObjetoDoJogador();
+        }
     }
 
-    private void DestruirGrupoDeObjetos()
+    private int DestruirGrupoDeObjetos()
     {
+        int objetosDestruidosLocal = 0;
+
         foreach (GameObject obj in objetosParaDestruir)
         {
-            if (obj.activeSelf)
+            if (obj != null)
             {
-                obj.SetActive(false);
-                objetosDestruidos++;
-
-                if (objetosDestruidos >= 3)
-                {
-                    grupoParaDesativar.SetActive(false);
-                    objetoParaAtivar.SetActive(true);
-                }
+                Destroy(obj);
+                objetosDestruidosLocal++;
             }
+        }
+
+        return objetosDestruidosLocal;
+    }
+
+    private void AtivarObjetoDoJogador()
+    {
+        foreach (GameObject obj in objetosParaAtivar)
+        {
+            obj.SetActive(true);
         }
     }
 

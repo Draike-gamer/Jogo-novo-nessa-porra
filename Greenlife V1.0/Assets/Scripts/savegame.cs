@@ -16,6 +16,12 @@ public class GameStateSaver : MonoBehaviour
 
     void Start()
     {
+        // Adiciona um listener para detectar quando o jogador clica na tela
+        Cursor.visible = true; // Certifica-se de que o cursor é visível inicialmente
+        Cursor.lockState = CursorLockMode.None; // Garante que o cursor está desbloqueado inicialmente
+        Input.simulateMouseWithTouches = false; // Evita que o cursor seja travado em dispositivos de toque
+        Cursor.visible = false; // Oculta o cursor novamente
+        Cursor.lockState = CursorLockMode.Locked; // Bloqueia o cursor novamente
         resetButton.onClick.AddListener(OnResetButtonPressed);
         resetPanel.SetActive(false);
     }
@@ -36,17 +42,25 @@ public class GameStateSaver : MonoBehaviour
         // Pausa a cena
         Time.timeScale = 0f;
 
-        // Libera o cursor do mouse
+        // Desbloqueia o cursor
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
 
     private void OnResetButtonPressed()
     {
-        // Volta ao tempo normal
-        Time.timeScale = 1f;
         // Coloca o jogador no objeto de respawn
         RespawnPlayer();
+
+        // Desativa o painel de reset
+        resetPanel.SetActive(false);
+
+        // Volta ao tempo normal
+        Time.timeScale = 1f;
+
+        // Esconde o cursor do mouse
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void RespawnPlayer()

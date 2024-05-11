@@ -5,6 +5,7 @@ using UnityEngine;
 public class AtivarDeObjeto : MonoBehaviour
 {
     public GameObject objetoParaAtivar;
+    public GameObject outroObjetoParaAtivar;
 
     private bool ativarObjeto = false;
 
@@ -17,10 +18,14 @@ public class AtivarDeObjeto : MonoBehaviour
             if (ativarObjeto)
             {
                 objetoParaAtivar.SetActive(true);
+                if (outroObjetoParaAtivar != null)
+                    outroObjetoParaAtivar.SetActive(false);
             }
             else
             {
                 objetoParaAtivar.SetActive(false);
+                if (outroObjetoParaAtivar != null)
+                    outroObjetoParaAtivar.SetActive(true);
             }
         }
     }

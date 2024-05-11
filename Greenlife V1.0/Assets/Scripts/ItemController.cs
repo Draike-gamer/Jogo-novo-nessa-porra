@@ -8,16 +8,23 @@ public class ItemController : MonoBehaviour
     public GameObject item1;
     public GameObject item2;
     public GameObject item3;
+    public ParticleSystem waterJetParticleSystem;
 
     // Variáveis para rastrear o estado de cada item
     private GameObject itemAtivo;
 
-    void Update()
+    void Start()
+    {
+        waterJetParticleSystem.Stop();
+    }
+
+        void Update()
     {
         // Verifica se a tecla 1 foi pressionada
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             AtivarItem(item1);
+            waterJetParticleSystem.Stop();
         }
 
         // Verifica se a tecla 2 foi pressionada
