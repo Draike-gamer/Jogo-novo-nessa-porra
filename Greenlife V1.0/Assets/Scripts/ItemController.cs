@@ -8,6 +8,7 @@ public class ItemController : MonoBehaviour
     public GameObject item1;
     public GameObject item2;
     public GameObject item3;
+    public GameObject tanque;
     public ParticleSystem waterJetParticleSystem;
 
     // Variáveis para rastrear o estado de cada item
@@ -25,18 +26,21 @@ public class ItemController : MonoBehaviour
         {
             AtivarItem(item1);
             waterJetParticleSystem.Stop();
+            tanque.SetActive(true);
         }
 
         // Verifica se a tecla 2 foi pressionada
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             AtivarItem(item2);
+            tanque.SetActive(false);
         }
 
         // Verifica se a tecla 3 foi pressionada
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             AtivarItem(item3);
+            tanque.SetActive(false);
         }
     }
 

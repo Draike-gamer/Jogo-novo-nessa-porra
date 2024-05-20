@@ -25,17 +25,30 @@ public class WaterJetController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButton(0) && currentWaterAmount > 0)
+        // Verifica a colisão com o objeto de recarga com um Raycast de alcance menor
+        Ray recargaRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit recargaHit;
+
+        if (Physics.Raycast(recargaRay, out recargaHit, 1f)) // Alcance de 2 unidades
+        {
+            if (recargaHit.collider.gameObject == objetoDeRecarga)
+            {
+                RecarregarAgua();
+            }
+        }
+
+        // Lógica de uso do jato de água
+        if (Input.GetMouseButton(0) && currentWaterAmount > 10)
         {
             if (!isWaterJetActive)
             {
                 ActivateWaterJet();
             }
 
-            RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit, 15f)) // Alcance de 10 unidades
             {
                 foreach (ObjetoComVida objetoComVida in objetosComVida)
                 {
@@ -43,11 +56,6 @@ public class WaterJetController : MonoBehaviour
                     {
                         objetoComVida.AplicarDano(10);
                     }
-                }
-
-                if (hit.collider.gameObject == objetoDeRecarga) // Verifica se colidiu com o objeto de recarga
-                {
-                    RecarregarAgua(); // Se sim, recarrega a água
                 }
             }
 

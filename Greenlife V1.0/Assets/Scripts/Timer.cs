@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.IO;
 
 public class SimpleTimer : MonoBehaviour
 {
@@ -11,8 +10,8 @@ public class SimpleTimer : MonoBehaviour
     public Text timerText; // Referência ao texto que mostrará o temporizador
     private bool timerIsRunning = false; // Flag para verificar se o temporizador está rodando
 
-    // Referência ao script do tripwire
-    public GameStateSaver gameStateSaver;
+    // Referência ao painel de reset
+    public GameObject resetPanel;
 
     void Start()
     {
@@ -35,10 +34,9 @@ public class SimpleTimer : MonoBehaviour
                 timeRemaining = 0;
                 timerIsRunning = false;
                 Debug.Log("Tempo acabou!");
-                Cursor.lockState = CursorLockMode.None;
 
-                // Chama a função para indicar que o temporizador chegou a zero no GameStateSaver
-                gameStateSaver.ResetScene();
+                // Chama a função para ativar o painel de reset no GlobalManager
+                GlobalManager.Instance.AtivarPainelDeReset();
             }
 
             // Atualizar o texto do temporizador
