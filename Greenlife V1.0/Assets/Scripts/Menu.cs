@@ -18,7 +18,7 @@ public class MainMenu : MonoBehaviour
     public void PlayGame()
     {
         // Carrega a cena do jogo
-        SceneManager.LoadScene("Mapa");
+        SceneManager.LoadScene("CUTISCINIS");
     }
 
     public void OpenOptions()
