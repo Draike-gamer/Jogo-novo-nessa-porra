@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/CUTISCINIS.unity
     guid: 76889188845122a4f99cdeb4269346a0
   - enabled: 1
+    path: "Assets/Scenes/Instru\xE7\xE3o.unity"
+    guid: 2647550fe7838ef4ea82761d32b90cb3
+  - enabled: 1
     path: Assets/Scenes/Mapa.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}
