@@ -803,7 +803,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 831, y: -450}
+  m_AnchoredPosition: {x: 831, y: 443}
   m_SizeDelta: {x: 189.8123, y: 117.3789}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2025738461
@@ -859,7 +859,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Mapa
+          m_StringArgument: "Instru\xE7\xE3o"
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &2025738462
