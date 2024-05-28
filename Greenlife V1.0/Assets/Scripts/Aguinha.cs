@@ -29,7 +29,7 @@ public class WaterJetController : MonoBehaviour
         Ray recargaRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit recargaHit;
 
-        if (Physics.Raycast(recargaRay, out recargaHit, 1f)) // Alcance de 2 unidades
+        if (Physics.Raycast(recargaRay, out recargaHit, 1f)) // Alcance de 1 unidade
         {
             if (recargaHit.collider.gameObject == objetoDeRecarga)
             {
@@ -48,14 +48,22 @@ public class WaterJetController : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, 15f)) // Alcance de 10 unidades
+            if (Physics.Raycast(ray, out hit, 15f)) // Alcance de 15 unidades
             {
+                // Lógica para aplicar dano em objetos com vida
                 foreach (ObjetoComVida objetoComVida in objetosComVida)
                 {
                     if (hit.collider.gameObject == objetoComVida.gameObject)
                     {
                         objetoComVida.AplicarDano(10);
                     }
+                }
+
+                // Lógica para transformar sementes em mudas de árvore
+                Sementes sementes = hit.collider.GetComponent<Sementes>();
+                if (sementes != null)
+                {
+                    sementes.Aguar(Time.deltaTime);
                 }
             }
 
