@@ -6,15 +6,14 @@ using UnityEngine.UI;
 public class DesativarObjeto : MonoBehaviour
 {
     public GameObject objetoParaDesativar;
+    public GameObject musicaParaDesativar;
+    public GameObject musicaParaAtivar;
     public Button botao;
 
     void Start()
     {
         if (botao != null)
         {
-            // Se estiver ativo, deixa o cursor solto
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
             // Adiciona um listener para o evento de clique do botão
             botao.onClick.AddListener(DesativarObjetoNaTela);
         }
@@ -29,7 +28,9 @@ public class DesativarObjeto : MonoBehaviour
         // Verifica se o objeto está ativo
         if (objetoParaDesativar.activeSelf)
         {
-           
+            // Se estiver ativo, deixa o cursor solto
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
         else
         {
@@ -41,6 +42,8 @@ public class DesativarObjeto : MonoBehaviour
 
     void DesativarObjetoNaTela()
     {
+        musicaParaDesativar.SetActive(false);
+        musicaParaAtivar.SetActive(true);
         // Desativa o objeto
         objetoParaDesativar.SetActive(false);
     }

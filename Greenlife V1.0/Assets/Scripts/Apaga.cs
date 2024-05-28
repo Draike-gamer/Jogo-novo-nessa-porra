@@ -10,6 +10,7 @@ public class ObjetoComVida : MonoBehaviour
     public Text textoVida;
     public GameObject[] objetosParaDestruir;
     public GameObject[] objetosParaAtivar;
+    public Material novaSkybox; // Adicionado para a nova skybox
     private bool ativarObjetoJogador = false;
 
     private void Start()
@@ -34,6 +35,7 @@ public class ObjetoComVida : MonoBehaviour
         {
             ativarObjetoJogador = true;
             GlobalManager.Instance.AtivarObjetos(objetosParaAtivar);
+            TrocarSkybox(); // Adicionado para trocar a skybox
         }
     }
 
@@ -62,6 +64,19 @@ public class ObjetoComVida : MonoBehaviour
         else
         {
             Debug.LogError("O componente de texto não está atribuído ao objeto.");
+        }
+    }
+
+    private void TrocarSkybox() // Novo método para trocar a skybox
+    {
+        if (novaSkybox != null)
+        {
+            RenderSettings.skybox = novaSkybox;
+            DynamicGI.UpdateEnvironment(); // Atualiza o ambiente para refletir a nova skybox
+        }
+        else
+        {
+            Debug.LogError("A nova skybox não está atribuída.");
         }
     }
 }
