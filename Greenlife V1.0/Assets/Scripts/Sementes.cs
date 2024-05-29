@@ -7,7 +7,6 @@ public class Sementes : MonoBehaviour
     public GameObject mudaDeArvore;
     public float tempoParaCrescer = 5f; // Tempo necessário para as sementes se transformarem em uma muda
     private float tempoAguado = 0f;
-    private bool crescendo = false;
 
     void Start()
     {
@@ -19,7 +18,7 @@ public class Sementes : MonoBehaviour
 
     void Update()
     {
-        if (crescendo && tempoAguado >= tempoParaCrescer)
+        if (tempoAguado >= tempoParaCrescer)
         {
             Crescer();
         }
@@ -28,10 +27,6 @@ public class Sementes : MonoBehaviour
     public void Aguar(float tempo)
     {
         tempoAguado += tempo;
-        if (tempoAguado >= tempoParaCrescer)
-        {
-            crescendo = true;
-        }
     }
 
     private void Crescer()
