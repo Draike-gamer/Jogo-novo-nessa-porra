@@ -35,6 +35,7 @@ public class Sementes : MonoBehaviour
         if (mudaDeArvore != null)
         {
             mudaDeArvore.SetActive(true); // Ativa a muda de árvore
+            GlobalManager.Instance.IncrementarMudasAtivadas(); // Incrementa o contador no GlobalManager
         }
     }
 }

@@ -6,6 +6,8 @@ public class GlobalManager : MonoBehaviour
 {
     public static GlobalManager Instance { get; private set; }
     public int ObjetosDestruidos = 0;
+    public int mudasAtivadas = 0; // Contador de mudas ativadas
+    public GameObject larvas; // Objeto das larvas que será ativado ao atingir 12 mudas
     public GameObject tempo;
     public GameObject resetPanel;
     public GameObject objetoParaDesativar;
@@ -27,6 +29,10 @@ public class GlobalManager : MonoBehaviour
     private void Start()
     {
         resetGame = FindObjectOfType<ResetGame>();
+        if (larvas != null)
+        {
+            larvas.SetActive(false); // Certifique-se de que as larvas estão desativadas no início
+        }
     }
 
     public void AtivarObjetos(GameObject[] objetosParaAtivar)
@@ -59,5 +65,22 @@ public class GlobalManager : MonoBehaviour
         resetGame.ResetScene();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+
+    public void IncrementarMudasAtivadas()
+    {
+        mudasAtivadas++;
+        if (mudasAtivadas >= 12)
+        {
+            AtivarLarvas();
+        }
+    }
+
+    private void AtivarLarvas()
+    {
+        if (larvas != null)
+        {
+            larvas.SetActive(true);
+        }
     }
 }
