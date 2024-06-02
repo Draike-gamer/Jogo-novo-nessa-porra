@@ -7,7 +7,9 @@ public class GlobalManager : MonoBehaviour
     public static GlobalManager Instance { get; private set; }
     public int ObjetosDestruidos = 0;
     public int mudasAtivadas = 0; // Contador de mudas ativadas
+    public int larvasDestruidas = 0; // Contador de larvas destruídas
     public GameObject larvas; // Objeto das larvas que será ativado ao atingir 12 mudas
+    public GameObject painelLarvas; // Painel a ser ativado quando 12 larvas forem destruídas
     public GameObject tempo;
     public GameObject resetPanel;
     public GameObject objetoParaDesativar;
@@ -32,6 +34,10 @@ public class GlobalManager : MonoBehaviour
         if (larvas != null)
         {
             larvas.SetActive(false); // Certifique-se de que as larvas estão desativadas no início
+        }
+        if (painelLarvas != null)
+        {
+            painelLarvas.SetActive(false); // Certifique-se de que o painel está desativado no início
         }
     }
 
@@ -81,6 +87,23 @@ public class GlobalManager : MonoBehaviour
         if (larvas != null)
         {
             larvas.SetActive(true);
+        }
+    }
+
+    public void IncrementarLarvasDestruidas()
+    {
+        larvasDestruidas++;
+        if (larvasDestruidas >= 12)
+        {
+            AtivarPainelLarvas();
+        }
+    }
+
+    private void AtivarPainelLarvas()
+    {
+        if (painelLarvas != null)
+        {
+            painelLarvas.SetActive(true);
         }
     }
 }
