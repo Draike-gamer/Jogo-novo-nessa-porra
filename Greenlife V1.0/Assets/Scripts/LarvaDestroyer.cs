@@ -5,42 +5,41 @@ using UnityEngine;
 public class LarvaDestroyer : MonoBehaviour
 {
     public ParticleSystem destroyParticleSystem;
-    public LayerMask larvaLayer; // Layer específica para as larvas
     public GameObject painelAtivado;
 
-    private bool isDestroyParticleSystemActive = false;
+    public bool isDestroyParticleSystemActive = false;
 
     void Start()
     {
         destroyParticleSystem.Stop();
+        isDestroyParticleSystemActive = false;
     }
 
     void Update()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
-            if (!isDestroyParticleSystemActive)
-            {
-                ActivateDestroyParticleSystem();
-            }
+            ActivateDestroyParticleSystem();
+        }
 
+        if (Input.GetMouseButtonUp(0))
+        {
+            DeactivateDestroyParticleSystem();
+        }
+
+        if (isDestroyParticleSystemActive)
+        {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, 50f, larvaLayer)) // Alcance de 15 unidades
+            if (Physics.Raycast(ray, out hit, 50f)) // Alcance de 50 unidades
             {
                 if (hit.collider.CompareTag("Larva"))
                 {
+                    Debug.Log("Larva detected and destroyed: " + hit.collider.name);
                     Destroy(hit.collider.gameObject);
                     GlobalManager.Instance.IncrementarLarvasDestruidas(); // Incrementa o contador no GlobalManager
                 }
-            }
-        }
-        else
-        {
-            if (isDestroyParticleSystemActive)
-            {
-                DeactivateDestroyParticleSystem();
             }
         }
     }
@@ -49,11 +48,13 @@ public class LarvaDestroyer : MonoBehaviour
     {
         destroyParticleSystem.Play();
         isDestroyParticleSystemActive = true;
+        Debug.Log("Destroy particle system activated.");
     }
 
     void DeactivateDestroyParticleSystem()
     {
         destroyParticleSystem.Stop();
         isDestroyParticleSystemActive = false;
+        Debug.Log("Destroy particle system deactivated.");
     }
 }

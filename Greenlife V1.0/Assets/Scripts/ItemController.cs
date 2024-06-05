@@ -1,34 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI; // Certifique-se de que você está usando este namespace para manipular UI
+using UnityEngine.UI;
 
 public class ItemController : MonoBehaviour
 {
-    // Referências para os itens que você quer ativar/desativar
     public GameObject item1;
     public GameObject item2;
     public GameObject item3;
     public GameObject tanque;
     public ParticleSystem waterJetParticleSystem;
 
-    // Referências para UI e o objeto sementes
-    public Text interactionText; // Adicione uma referência ao texto de interação
-    private GameObject currentHole; // Armazena o buraco atual que está sendo mirado
+    public GameObject ativadorItem1;
+    public GameObject ativadorItem2;
+    public GameObject ativadorItem3;
 
-    // Variáveis para rastrear o estado de cada item
+    public Text interactionText;
+    private GameObject currentHole;
+
     private GameObject itemAtivo;
 
     void Start()
     {
         waterJetParticleSystem.Stop();
-        interactionText.gameObject.SetActive(false); // Certifique-se de que o texto está desativado no início
+        interactionText.gameObject.SetActive(false);
     }
 
     void Update()
     {
         // Verifica se a tecla 1 foi pressionada
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha1) && !ativadorItem1.activeSelf)
         {
             AtivarItem(item1);
             waterJetParticleSystem.Stop();
@@ -36,14 +37,14 @@ public class ItemController : MonoBehaviour
         }
 
         // Verifica se a tecla 2 foi pressionada
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetKeyDown(KeyCode.Alpha2) && !ativadorItem2.activeSelf)
         {
             AtivarItem(item2);
             tanque.SetActive(false);
         }
 
         // Verifica se a tecla 3 foi pressionada
-        if (Input.GetKeyDown(KeyCode.Alpha3))
+        if (Input.GetKeyDown(KeyCode.Alpha3) && !ativadorItem3.activeSelf)
         {
             AtivarItem(item3);
             tanque.SetActive(false);
@@ -56,27 +57,23 @@ public class ItemController : MonoBehaviour
         }
         else
         {
-            interactionText.gameObject.SetActive(false); // Esconde o texto se o item2 não estiver ativo
+            interactionText.gameObject.SetActive(false);
         }
     }
 
     void AtivarItem(GameObject novoItem)
     {
-        // Desativa o item atual, se houver
         if (itemAtivo != null)
         {
             itemAtivo.SetActive(false);
         }
 
-        // Ativa o novo item
         novoItem.SetActive(true);
-        // Define o novo item como o item ativo
         itemAtivo = novoItem;
     }
 
     void VerificarInteracaoBuraco()
     {
-        // Realiza um Raycast a partir da câmera
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
