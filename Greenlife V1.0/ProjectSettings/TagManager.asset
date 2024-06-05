@@ -3,7 +3,17 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
+<<<<<<< HEAD
   tags: []
+=======
+  tags:
+  - Tree
+  - Fire
+  - WaterParticles
+  - Bala
+  - Buraco
+  - Larva
+>>>>>>> parent of 215171a (goosecadovaitomanocu)
   layers:
   - Default
   - TransparentFX

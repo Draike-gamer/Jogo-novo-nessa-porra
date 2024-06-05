@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UI; // Certifique-se de que você está usando este namespace para manipular UI
 
 public class ItemController : MonoBehaviour
 {
@@ -15,17 +15,9 @@ public class ItemController : MonoBehaviour
     // Referências para UI e o objeto sementes
     public Text interactionText; // Adicione uma referência ao texto de interação
     private GameObject currentHole; // Armazena o buraco atual que está sendo mirado
-    private GameObject currentActivator; // Armazena o ativador atual que está sendo mirado
 
     // Variáveis para rastrear o estado de cada item
     private GameObject itemAtivo;
-
-     // Referência ao script carregamochila
-    public carregamochila carregamochilaScript;
-
-    public semente sementeScript;
-
-    public Spray sprayScript;
 
     void Start()
     {
@@ -35,8 +27,8 @@ public class ItemController : MonoBehaviour
 
     void Update()
     {
-         // Verifica se a tecla 1 foi pressionada e se itemum é true
-        if (Input.GetKeyDown(KeyCode.Alpha1) && carregamochilaScript.itemum)
+        // Verifica se a tecla 1 foi pressionada
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             AtivarItem(item1);
             waterJetParticleSystem.Stop();
@@ -44,20 +36,20 @@ public class ItemController : MonoBehaviour
         }
 
         // Verifica se a tecla 2 foi pressionada
-        if (Input.GetKeyDown(KeyCode.Alpha2) && sementeScript.itemdois)
+        if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             AtivarItem(item2);
             tanque.SetActive(false);
         }
 
         // Verifica se a tecla 3 foi pressionada
-        if (Input.GetKeyDown(KeyCode.Alpha3) && sprayScript.itemtres)
+        if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             AtivarItem(item3);
             tanque.SetActive(false);
         }
 
-        // Se o item2 estiver ativo, verifica o Raycast para buracos
+        // Se o item2 estiver ativo, verifica o Raycast
         if (itemAtivo == item2)
         {
             VerificarInteracaoBuraco();
@@ -66,9 +58,6 @@ public class ItemController : MonoBehaviour
         {
             interactionText.gameObject.SetActive(false); // Esconde o texto se o item2 não estiver ativo
         }
-
-        // Verifica o Raycast para ativadores
-        VerificarInteracaoAtivador();
     }
 
     void AtivarItem(GameObject novoItem)
@@ -118,55 +107,6 @@ public class ItemController : MonoBehaviour
         {
             interactionText.gameObject.SetActive(false);
             currentHole = null;
-        }
-    }
-
-    void VerificarInteracaoAtivador()
-    {
-        // Realiza um Raycast a partir da câmera
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit))
-        {
-            if (hit.collider.CompareTag("Ativador"))
-            {
-                currentActivator = hit.collider.gameObject;
-                interactionText.text = "Ativar";
-                interactionText.gameObject.SetActive(true);
-
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    // Ativa o item correspondente e desativa o ativador
-                    if (currentActivator.name == "Ativador1")
-                    {
-                        AtivarItem(item1);
-                        currentActivator.SetActive(false);
-                    }
-                    else if (currentActivator.name == "Ativador2")
-                    {
-                        AtivarItem(item2);
-                        currentActivator.SetActive(false);
-                    }
-                    else if (currentActivator.name == "Ativador3")
-                    {
-                        AtivarItem(item3);
-                        currentActivator.SetActive(false);
-                    }
-
-                    interactionText.gameObject.SetActive(false);
-                }
-            }
-            else
-            {
-                interactionText.gameObject.SetActive(false);
-                currentActivator = null;
-            }
-        }
-        else
-        {
-            interactionText.gameObject.SetActive(false);
-            currentActivator = null;
         }
     }
 }
