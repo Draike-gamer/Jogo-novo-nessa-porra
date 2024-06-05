@@ -3,24 +3,15 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Tree
-  - Fire
-  - WaterParticles
-  - Bala
-  - Buraco
-  - Larva
-  - Ativador3
-  - Ativador2
-  - Ativador1
+  tags: []
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Ground Layer
+  - 
   - Water
   - UI
-  - larvaLayer
+  - 
   - 
   - 
   - 
@@ -49,10 +40,4 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: UI
-    uniqueID: 3004007897
-    locked: 0
-  - name: Player
-    uniqueID: 1730150321
     locked: 0

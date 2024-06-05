@@ -5,7 +5,6 @@ using UnityEngine;
 public class LarvaDestroyer : MonoBehaviour
 {
     public ParticleSystem destroyParticleSystem;
-    public LayerMask larvaLayer; // Layer específica para as larvas
     public GameObject painelAtivado;
 
     private bool isDestroyParticleSystemActive = false;
@@ -13,6 +12,7 @@ public class LarvaDestroyer : MonoBehaviour
     void Start()
     {
         destroyParticleSystem.Stop();
+        Debug.Log("Destroy particle system stopped at start.");
     }
 
     void Update()
@@ -27,10 +27,10 @@ public class LarvaDestroyer : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, 50f, larvaLayer)) // Alcance de 50 unidades
+            if (Physics.Raycast(ray, out hit, 50f)) // Alcance de 50 unidades
             {
                 Debug.Log("Raycast hit: " + hit.collider.name);
-                
+
                 if (hit.collider.CompareTag("Larva"))
                 {
                     Debug.Log("Larva detected and destroyed: " + hit.collider.name);
@@ -44,7 +44,7 @@ public class LarvaDestroyer : MonoBehaviour
             }
             else
             {
-                Debug.Log("Raycast did not hit any object in the larva layer.");
+                Debug.Log("Raycast did not hit any object.");
             }
         }
         else
@@ -60,11 +60,13 @@ public class LarvaDestroyer : MonoBehaviour
     {
         destroyParticleSystem.Play();
         isDestroyParticleSystemActive = true;
+        Debug.Log("Destroy particle system activated.");
     }
 
     void DeactivateDestroyParticleSystem()
     {
         destroyParticleSystem.Stop();
         isDestroyParticleSystemActive = false;
+        Debug.Log("Destroy particle system deactivated.");
     }
 }
