@@ -3,7 +3,16 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
+<<<<<<< HEAD
   tags: []
+=======
+  tags:
+  - Tree
+  - Fire
+  - WaterParticles
+  - Bala
+  - Buraco
+>>>>>>> parent of ca5bffd (melhorado sakata)
   layers:
   - Default
   - TransparentFX
