@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class KeyController : MonoBehaviour
 {
-    public GameObject keyUI; // Referência ao objeto UI que representa a chave no inventário
+    public GameObject keyUI; // Referï¿½ncia ao objeto UI que representa a chave no inventï¿½rio
 
     private void OnTriggerEnter(Collider other)
     {
@@ -19,13 +19,12 @@ public class KeyController : MonoBehaviour
         // Desativa a chave na cena
         gameObject.SetActive(false);
 
-        // Ativa a chave no inventário (UI)
+        // Ativa a chave no inventï¿½rio (UI)
         if (keyUI != null)
         {
             keyUI.SetActive(true);
         }
 
-        // Notifica o DoorController que a chave foi coletada
-        DoorController.KeyCollected(gameObject);
+        // Notifica o DoorController que a chave foi coletadas
     }
 }
