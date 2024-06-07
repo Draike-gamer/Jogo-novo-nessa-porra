@@ -13,9 +13,11 @@ public class DoorController : MonoBehaviour
     public float raycastDistance = 2.0f;
     public KeyCode interactionKey = KeyCode.E;
     public Text interactionText; // Texto de interação na UI
+    public Animator doorAnimator; // Referência ao Animator da porta
 
     // Mapeamento de portas e chaves
     private static Dictionary<GameObject, GameObject> doorKeyMap = new Dictionary<GameObject, GameObject>();
+    private static HashSet<GameObject> collectedKeys = new HashSet<GameObject>(); // Conjunto de chaves coletadas
 
     private void Awake()
     {
@@ -42,11 +44,11 @@ public class DoorController : MonoBehaviour
             // Cria o Raycast a partir da posição do jogador
             if (Physics.Raycast(transform.position, transform.forward, out hit, raycastDistance))
             {
-                // Verifica se o Raycast atingiu uma chave
-                if (doorKeyMap.ContainsValue(hit.collider.gameObject))
+                // Verifica se o Raycast atingiu uma porta
+                if (hit.collider.gameObject == door)
                 {
-                    // Verifica se a chave atingida corresponde a esta porta
-                    if (doorKeyMap[door] == hit.collider.gameObject)
+                    // Verifica se a chave correspondente foi coletada
+                    if (doorKeyMap.ContainsKey(door) && collectedKeys.Contains(doorKeyMap[door]))
                     {
                         OpenDoor();
                     }
@@ -64,8 +66,13 @@ public class DoorController : MonoBehaviour
         {
             isOpen = true;
             isClosed = false;
-            // Aqui você pode adicionar a animação ou lógica para abrir a porta
-            door.SetActive(false); // Exemplo de desativar a porta para simular a abertura
+
+            // Define o parâmetro "abrir" no Animator para iniciar a animação
+            if (doorAnimator != null)
+            {
+                doorAnimator.SetBool("abrir", true);
+            }
+
             Debug.Log("Porta aberta!");
 
             // Incrementar o contador de portas abertas
@@ -88,8 +95,8 @@ public class DoorController : MonoBehaviour
             // Verifica se o Raycast atingiu uma porta
             if (hit.collider.gameObject == door)
             {
-                // Verifica se a chave correspondente foi destruída
-                if (doorKeyMap.ContainsKey(door) && doorKeyMap[door] == null)
+                // Verifica se a chave correspondente foi coletada
+                if (doorKeyMap.ContainsKey(door) && collectedKeys.Contains(doorKeyMap[door]))
                 {
                     // Exibir o texto de interação
                     if (interactionText != null)
@@ -108,5 +115,10 @@ public class DoorController : MonoBehaviour
                 interactionText.enabled = false;
             }
         }
+    }
+
+    public static void KeyCollected(GameObject key)
+    {
+        collectedKeys.Add(key);
     }
 }
