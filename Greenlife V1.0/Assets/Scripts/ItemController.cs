@@ -10,6 +10,7 @@ public class ItemController : MonoBehaviour
     public GameObject item3;
     public GameObject tanque;
     public ParticleSystem waterJetParticleSystem;
+    public ParticleSystem destroyParticleSystem;
 
     public GameObject ativadorItem1;
     public GameObject ativadorItem2;
@@ -47,6 +48,7 @@ public class ItemController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha3) && !ativadorItem3.activeSelf)
         {
             AtivarItem(item3);
+            destroyParticleSystem.Stop();
             tanque.SetActive(false);
         }
 
