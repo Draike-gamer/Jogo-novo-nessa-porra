@@ -8,6 +8,6 @@ public class SceneChanger : MonoBehaviour
     // Método para mudar para uma cena específica
     public void ChangeScene(string sceneName)
     {
-        SceneManager.LoadScene("Instrução");
+        SceneManager.LoadScene("Controles");
     }
 }
