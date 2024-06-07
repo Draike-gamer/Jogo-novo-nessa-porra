@@ -84,7 +84,7 @@ public class ItemController : MonoBehaviour
             if (hit.collider.CompareTag("Buraco"))
             {
                 currentHole = hit.collider.gameObject;
-                interactionText.text = "Plantar";
+                interactionText.text = "Plant";
                 interactionText.gameObject.SetActive(true);
 
                 if (Input.GetKeyDown(KeyCode.E))

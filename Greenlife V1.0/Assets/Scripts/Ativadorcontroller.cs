@@ -28,7 +28,7 @@ public class AtivadorController : MonoBehaviour
             if (hit.collider.CompareTag("Ativador"))
             {
                 currentAtivador = hit.collider.gameObject;
-                interactionText.text = "Pegar";
+                interactionText.text = "Take";
                 interactionText.gameObject.SetActive(true);
 
                 if (Input.GetKeyDown(KeyCode.E))

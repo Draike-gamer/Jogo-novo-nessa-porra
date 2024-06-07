@@ -13,7 +13,9 @@ public class GlobalManager : MonoBehaviour
     public GameObject tempo;
     public GameObject resetPanel;
     public GameObject objetoParaDesativar;
+    public GameObject painelPortasAbertas; // Painel a ser ativado quando todas as portas forem abertas
     private ResetGame resetGame;
+    private int portasAbertas = 0; // Contador de portas abertas
 
     private void Awake()
     {
@@ -38,6 +40,29 @@ public class GlobalManager : MonoBehaviour
         if (painelLarvas != null)
         {
             painelLarvas.SetActive(false); // Certifique-se de que o painel está desativado no início
+        }
+        if (painelPortasAbertas != null)
+        {
+            painelPortasAbertas.SetActive(false); // Certifique-se de que o painel está desativado no início
+        }
+    }
+
+    public void IncrementarPortasAbertas()
+    {
+        portasAbertas++;
+        if (portasAbertas >= 3)
+        {
+            AtivarPainelPortasAbertas();
+        }
+    }
+
+    private void AtivarPainelPortasAbertas()
+    {
+        if (painelPortasAbertas != null)
+        {
+            painelPortasAbertas.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
 
