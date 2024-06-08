@@ -12,6 +12,7 @@ TagManager:
   - Larva
   - Ativador
   - Key
+  - Door
   layers:
   - Default
   - TransparentFX
