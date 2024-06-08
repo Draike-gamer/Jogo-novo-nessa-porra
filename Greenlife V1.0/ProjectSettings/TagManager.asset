@@ -11,6 +11,7 @@ TagManager:
   - Buraco
   - Larva
   - Ativador
+  - Key
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - Water
   - UI
   - larvaLayer
-  - 
+  - playerLayer
   - 
   - 
   - 
@@ -48,9 +49,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: UI
-    uniqueID: 3004007897
-    locked: 0
   - name: Player
     uniqueID: 1730150321
+    locked: 0
+  - name: UI
+    uniqueID: 3004007897
     locked: 0

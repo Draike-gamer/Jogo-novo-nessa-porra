@@ -5,81 +5,79 @@ using UnityEngine.UI;
 
 public class DoorController : MonoBehaviour
 {
-    public GameObject door;
-    public GameObject key;
-    public float raycastDistance = 2.0f;
-    public KeyCode interactionKey = KeyCode.E;
-    public Text interactionText; // Texto de interação na UI
-    public Animator doorAnimator; // Referência ao Animator da porta
+    public GameObject requiredKey; // Chave necessária para abrir esta porta
+    public Text interactionText;
+    public KeyCode interactKey = KeyCode.E;
 
-    private void Start()
+    private Animator animator;
+    private bool hasKey = false;
+
+    void Start()
     {
-        if (interactionText != null)
+        animator = GetComponent<Animator>();
+        interactionText.gameObject.SetActive(false);
+    }
+
+    void Update()
+    {
+        CheckInteraction();
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player") && hasKey)
         {
-            interactionText.text = "";
-            interactionText.enabled = false;
+            Open();
         }
     }
 
-    private void Update()
+    void CheckInteraction()
     {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        // Cria o Raycast a partir da posição do jogador
-        if (Physics.Raycast(transform.position, transform.forward, out hit, raycastDistance))
-        {
-            // Verifica se o Raycast atingiu a porta
-            if (hit.collider.gameObject == door)
-            {
-                // Exibir o texto de interação se a chave estiver desativada
-                if (!key.activeInHierarchy)
-                {
-                    if (interactionText != null)
-                    {
-                        interactionText.text = "Open";
-                        interactionText.enabled = true;
-                    }
 
-                    // Detecta a tecla "E" pressionada
-                    if (Input.GetKeyDown(interactionKey))
-                    {
-                        OpenDoor();
-                    }
-                }
+        if (Physics.Raycast(ray, out hit) && hit.collider.CompareTag("Door"))
+        {
+            if (hasKey)
+            {
+                interactionText.text = "Open";
             }
             else
             {
-                if (interactionText != null)
+                interactionText.text = "Locked";
+            }
+
+            interactionText.gameObject.SetActive(true);
+
+            if (Input.GetKeyDown(interactKey))
+            {
+                if (!hasKey)
                 {
-                    interactionText.enabled = false;
+                    Debug.Log("You need a key to open this door.");
+                    return;
                 }
+
+                Open();
             }
         }
         else
         {
-            if (interactionText != null)
-            {
-                interactionText.enabled = false;
-            }
+            interactionText.gameObject.SetActive(false);
         }
     }
 
-    private void OpenDoor()
+    void Open()
     {
-        // Define o parâmetro "abrir" no Animator para iniciar a animação
-        if (doorAnimator != null)
-        {
-            doorAnimator.SetBool("abrir", true);
-        }
+        animator.SetTrigger("abrir");
+    }
 
-        Debug.Log("Porta aberta!");
+    public void CollectKey()
+    {
+        hasKey = true;
+        requiredKey.SetActive(false); // Desativa a chave ao coletá-la
+        Debug.Log("Key collected: " + requiredKey.name);
 
-        // Incrementar o contador de portas abertas
-        GlobalManager.Instance.IncrementarPortasAbertas();
-
-        // Desativar o texto de interação
-        if (interactionText != null)
-        {
-            interactionText.enabled = false;
-        }
+        // Atualiza o texto para "Open" ao coletar a chave
+        interactionText.text = "Open";
     }
 }
